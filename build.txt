@@ -1,0 +1,2 @@
+x86_64-w64-mingw32-windres litevis.rc -O coff -o res.o
+x86_64-w64-mingw32-gcc -O2 -s -mwindows -static -o LatteVisualizer.exe litevis.c res.o -lole32 -luuid -lshell32 -luser32 -lgdi32 -lcomctl32 -lcomdlg32 -lmsimg32 -lgdiplus -lm
