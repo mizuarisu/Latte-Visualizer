@@ -1,0 +1,23 @@
+name: Build LiteVis
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v4
+
+      - name: Set up Microsoft Compiler (MSVC)
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Compile the Application
+        run: |
+          rc litevis.rc
+          cl /O2 litevis.c litevis.res /link /SUBSYSTEM:WINDOWS user32.lib gdi32.lib advapi32.lib ole32.lib shell32.lib comctl32.lib comdlg32.lib gdiplus.lib
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: litevis-windows11
+          path: litevis.exe
